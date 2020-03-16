@@ -1,13 +1,16 @@
 <div id="auth-menu">
-	<header>
-		<svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24">
-		  <path d="M12,2A10,10,0,0,0,4.65,18.76h0a10,10,0,0,0,14.7,0h0A10,10,0,0,0,12,2Zm0,18a8,8,0,0,1-5.55-2.25,6,6,0,0,1,11.1,0A8,8,0,0,1,12,20ZM10,10a2,2,0,1,1,2,2A2,2,0,0,1,10,10Zm8.91,6A8,8,0,0,0,15,12.62a4,4,0,1,0-6,0A8,8,0,0,0,5.09,16,7.92,7.92,0,0,1,4,12a8,8,0,0,1,16,0A7.92,7.92,0,0,1,18.91,16Z"/>
-		</svg>
+	<header class="bg-cover" style="background-image: url( {{ (auth()->user()->cover) ? asset('storage/users/covers/'.auth()->user()->cover) : asset('img/default-cover.png') }} );">
+		<div id="auth-overlay-color"></div>
+		@if (auth()->user()->avatar)
+			<img src="{{ asset('storage/users/avatars/'.auth()->user()->avatar) }}" alt="" id="auth-avatar" class="h-16 rounded-full">
+		@else
+			<img src="{{ asset('img/default-avatar.png') }}" alt="" id="auth-avatar" class="h-16 rounded-full">
+		@endif
 		<p id="auth-name">{{ auth()->user()->name }}</p>
 		<p id="auth-email">{{ auth()->user()->email }}</p>
 		<p id="auth-role">Administrator</p>
 	</header>
-	<a href="">
+	<a href="{{ route('backend.profile.show') }}" class="{{ setActive('backend.profile.*') }}">
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 		  <path d="M14.81,12.28a3.73,3.73,0,0,0,1-2.5,3.78,3.78,0,0,0-7.56,0,3.73,3.73,0,0,0,1,2.5A5.94,5.94,0,0,0,6,16.89a1,1,0,0,0,2,.22,4,4,0,0,1,7.94,0A1,1,0,0,0,17,18h.11a1,1,0,0,0,.88-1.1A5.94,5.94,0,0,0,14.81,12.28ZM12,11.56a1.78,1.78,0,1,1,1.78-1.78A1.78,1.78,0,0,1,12,11.56ZM19,2H5A3,3,0,0,0,2,5V19a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V5A3,3,0,0,0,19,2Zm1,17a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V5A1,1,0,0,1,5,4H19a1,1,0,0,1,1,1Z"/>
 		</svg>

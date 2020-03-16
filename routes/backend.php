@@ -22,7 +22,8 @@ Route::post('logout','Auth\LoginController@logout')->name('backend.logout');
 Route::get('/','DashboardController@index')->name('backend.dashboard');
 
 // Profile
-// Route::get('profile/show','ProfileController@show')->name('backend.profile.show');
-// Route::get('profile/edit','ProfileController@edit')->name('backend.profile.edit');
-// Route::patch('profile','ProfileController@update')->name('backend.profile.update');
-// Route::post('profile/delete-avatar','ProfileController@deleteAvatar')->name('backend.profile.delete-avatar');
+Route::get('profile/show','ProfileController@show')->name('backend.profile.show');
+Route::get('profile/edit','ProfileController@edit')->name('backend.profile.edit');
+Route::patch('profile','ProfileController@update')->name('backend.profile.update');
+Route::post('profile/delete-avatar','ProfileController@deleteAvatar')->name('backend.profile.delete-avatar');
+Route::post('profile/delete-cover','ProfileController@deleteCover')->name('backend.profile.delete-cover');

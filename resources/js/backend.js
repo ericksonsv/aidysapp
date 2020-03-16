@@ -15,6 +15,17 @@
 	window.Toast = Toast;
 // SweetAlert
 
+// Vue
+	import Vue from 'vue';
+	window.Vue = Vue;
+// Vue
+
+// Axios
+	import axios from 'axios';
+	window.axios = axios;
+	window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+// Axios
+
 // Toggle Sidebar
 	let mainContentWrapper = document.querySelector('#main-content-wrapper');
 	let toggleSidebarBtn = document.querySelector('#toggle-sidebar-btn');

@@ -83,27 +83,28 @@ svg { @apply fill-current w-6 h-6; }
 	#auth-menu {
 		transition: right;
 		right: -19rem;
-		@apply bg-gray-950 border-2 border-gray-950 shadow-md fixed top-0 mt-20 mr-3 w-72 rounded-md overflow-hidden z-50 duration-500 ease-in-out;
+		@apply bg-gray-950 border-4 border-gray-950 shadow-md fixed top-0 mt-20 mr-3 w-72 rounded-md overflow-hidden z-50 duration-500 ease-in-out;
 		header {
-			@apply bg-gray-1000 p-4 flex flex-col items-center justify-center leading-tight;
-			#auth-name {
-				@apply text-lg;
-			}
-			#auth-email, #auth-role {
-				@apply text-sm
-			}
+			@apply relative bg-gray-1000 text-gray-100 rounded p-4 mb-2 flex flex-col items-center justify-center leading-tight overflow-hidden;
+			#auth-overlay-color { @apply absolute bg-gray-1000 top-0 left-0 w-full h-full opacity-75 z-10; }
+			#auth-avatar { @apply z-50; }
+			#auth-name { @apply text-lg z-50; }
+			#auth-email, #auth-role { @apply text-sm z-50; }
 		}
 		a {
 			transition: all;
-			@apply h-12 px-4 flex items-center duration-500 ease-in-out;
+			@apply h-12 px-4 rounded flex items-center duration-500 ease-in-out overflow-hidden;
 			svg {
 				@apply mr-2;
 			}
 			&:hover {
 				@apply bg-gray-1000 shadow-inner text-blue-800;
 			}
+			&.active {
+				@apply text-blue-800;
+			}
 		}
-		footer { @apply border-t border-gray-1000; }
+		footer { @apply border-t-2 border-gray-1000; }
 		&.is-open {
 			@apply right-0;
 		}
@@ -227,7 +228,7 @@ svg { @apply fill-current w-6 h-6; }
 	}
 	.btn {
 		transition: background-color;
-		@apply bg-gray-700 text-gray-400 flex items-center justify-center px-3 py-2 rounded shadow text-sm duration-500 ease-in-out;
+		@apply bg-gray-800 text-gray-400 flex items-center justify-center px-3 py-2 rounded shadow-md text-sm duration-500 ease-in-out;
 		svg {
 			@apply fill-current w-5 h-5;
 		}
@@ -250,13 +251,38 @@ svg { @apply fill-current w-6 h-6; }
 			}
 		}
 		&:hover {
-			@apply bg-gray-800;
+			@apply bg-gray-900 text-blue-800;
+			svg { @apply text-blue-800; }
 		}
 		&:focus {
 			@apply outline-none;
 		}
 	}
 // Form Inputs, Buttons
+
+// Page Header
+	.page-header {
+		@apply my-6 flex flex-wrap flex-row justify-between items-center;
+	}
+	@media (max-width: 640px) {
+		.page-header {
+			@apply flex-col;
+		}
+	}
+// Page Header
+
+// Card Component
+	.card {
+		@apply bg-gray-900 shadow-md rounded-md overflow-hidden;
+		.card-header, .card-footer {
+			@apply bg-gray-950 p-5;
+		}
+		.card-body { @apply p-5; }
+		.card-footer {
+			@apply bg-gray-950 p-5;
+		}
+	}
+// Card Component
 
 body.light-theme { @apply bg-gray-100 text-gray-800; }
 body.dark-theme { @apply bg-gray-1000 text-gray-500; }
