@@ -230,7 +230,8 @@ svg { @apply fill-current w-6 h-6; }
 		transition: background-color;
 		@apply bg-gray-800 text-gray-400 flex items-center justify-center px-3 py-2 rounded shadow-md text-sm duration-500 ease-in-out;
 		svg {
-			@apply fill-current w-5 h-5;
+			transition: color;
+			@apply w-5 h-5 duration-500 ease-in-out;
 		}
 		span {
 			@apply ml-2;
@@ -263,6 +264,9 @@ svg { @apply fill-current w-6 h-6; }
 // Page Header
 	.page-header {
 		@apply my-6 flex flex-wrap flex-row justify-between items-center;
+		> section {
+			@apply flex items-center;
+		}
 	}
 	@media (max-width: 640px) {
 		.page-header {
@@ -283,6 +287,139 @@ svg { @apply fill-current w-6 h-6; }
 		}
 	}
 // Card Component
+
+// Table Component
+	table.dataTable thead .sorting,
+	table.dataTable thead .sorting_asc,
+	table.dataTable thead .sorting_desc,
+	table.dataTable thead .sorting_asc_disabled,
+	table.dataTable thead .sorting_desc_disabled {
+		cursor: pointer;
+		*cursor: hand;
+		background-repeat: no-repeat;
+		background-position: center right;
+	}
+	table.dataTable thead .sorting {
+		background-image: url("/img/sort_both.png");
+	}
+	table.dataTable thead .sorting_asc {
+		background-image: url("/img/sort_asc.png");
+	}
+	table.dataTable thead .sorting_desc {
+		background-image: url("/img/sort_desc.png");
+	}
+	table.dataTable thead .sorting_asc_disabled {
+		background-image: url("/img/sort_asc_disabled.png");
+	}
+	table.dataTable thead .sorting_desc_disabled {
+		background-image: url("/img/sort_desc_disabled.png");
+	}
+	.table-container {
+		@apply overflow-x-auto py-10;
+		table.table {
+			@apply table-auto w-full border-separate text-sm text-left my-2;
+			thead {
+				tr {
+					th {
+						@apply bg-gray-900 shadow-sm p-2;
+						&:first-child {
+							width: 10px;
+							div {
+								@apply flex items-center;
+								input {
+									@apply text-blue-800 h-4 w-4;
+								}
+							}
+						}
+					}
+				}
+			}
+			tbody {
+				tr {
+					td {
+						transition: background-color, color;
+						@apply bg-gray-800 shadow-sm shadow-inner p-2 duration-500 ease-in-out;
+						&:first-child {
+							width: 10px;
+							div {
+								@apply flex items-center;
+								input {
+									@apply text-blue-800 h-4 w-4;
+								}
+							}
+						}
+						&:last-child {
+							width: 125px;
+							min-width: 125px;
+							.table-options {
+								@apply flex items-center justify-around;
+								a {
+									transition: border-color;
+									@apply border-2 border-gray-500 p-1 rounded shadow-md flex items-center justify-center duration-500 ease-in-out;
+									svg {
+										transition: color;
+										@apply w-4 h-4 duration-500 ease-in-out;
+									}
+									&:hover {
+										@apply border-blue-800;
+										svg {
+											@apply text-blue-800;
+										}
+									}
+								}
+							}
+						}
+					}
+					&:hover {
+						td { @apply bg-gray-900 shadow-inner; }
+					}
+				}
+			}
+		}
+	}
+	.dataTables_info {
+		@apply text-sm mb-2;
+	}
+	.dataTables_length {
+		@apply inline-flex mr-6 mb-2;
+		label {
+			@apply text-sm capitalize;
+			select {
+				@apply bg-gray-400 border-gray-400 border-2 text-gray-600 text-sm rounded p-1 mx-1 shadow-md;
+				&:focus {
+					@apply bg-white outline-none;
+				}
+			}
+		}
+	}
+	.dataTables_filter {
+		@apply inline-flex mb-2;
+		label {
+			@apply text-sm;
+			input {
+				@apply bg-gray-400 border-gray-400 border-2 text-gray-600 text-sm rounded p-1 mx-1 shadow-md;
+				&:focus {
+					@apply bg-white outline-none;
+				}
+			}
+		}
+	}
+	.dataTables_paginate.paging_simple_numbers {
+		.paginate_button {
+			transition: background-color, color;
+			@apply bg-gray-800 text-gray-400 px-2 py-1 mr-1 rounded shadow-md text-sm duration-500 ease-in-out cursor-pointer;
+			&:hover {
+				@apply bg-gray-900 text-blue-800;
+			}
+			&.previous {}
+			&.next {}
+			&.disabled {}
+		}
+		.ellipsis{
+			@apply mr-1 text-lg;
+		}
+	}
+// Table Component
 
 body.light-theme { @apply bg-gray-100 text-gray-800; }
 body.dark-theme { @apply bg-gray-1000 text-gray-500; }

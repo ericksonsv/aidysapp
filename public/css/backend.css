@@ -18354,9 +18354,11 @@ body::-webkit-scrollbar-thumb {
 }
 
 .btn svg {
-  fill: currentColor;
+  transition: color;
   width: 1.25rem;
   height: 1.25rem;
+  transition-duration: 500ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn span {
@@ -18416,6 +18418,11 @@ body::-webkit-scrollbar-thumb {
   align-items: center;
 }
 
+.page-header > section {
+  display: flex;
+  align-items: center;
+}
+
 @media (max-width: 640px) {
   .page-header {
     flex-direction: column;
@@ -18441,6 +18448,233 @@ body::-webkit-scrollbar-thumb {
 .card .card-footer {
   background-color: #161d2b;
   padding: 1.25rem;
+}
+
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc,
+table.dataTable thead .sorting_asc_disabled,
+table.dataTable thead .sorting_desc_disabled {
+  cursor: pointer;
+  cursor: hand;
+  background-repeat: no-repeat;
+  background-position: center right;
+}
+
+table.dataTable thead .sorting {
+  background-image: url("/img/sort_both.png");
+}
+
+table.dataTable thead .sorting_asc {
+  background-image: url("/img/sort_asc.png");
+}
+
+table.dataTable thead .sorting_desc {
+  background-image: url("/img/sort_desc.png");
+}
+
+table.dataTable thead .sorting_asc_disabled {
+  background-image: url("/img/sort_asc_disabled.png");
+}
+
+table.dataTable thead .sorting_desc_disabled {
+  background-image: url("/img/sort_desc_disabled.png");
+}
+
+.table-container {
+  overflow-x: auto;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.table-container table.table {
+  table-layout: auto;
+  width: 100%;
+  border-collapse: separate;
+  font-size: 0.875rem;
+  text-align: left;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.table-container table.table thead tr th {
+  background-color: #1a202c;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  padding: 0.5rem;
+}
+
+.table-container table.table thead tr th:first-child {
+  width: 10px;
+}
+
+.table-container table.table thead tr th:first-child div {
+  display: flex;
+  align-items: center;
+}
+
+.table-container table.table thead tr th:first-child div input {
+  color: #2c5282;
+  height: 1rem;
+  width: 1rem;
+}
+
+.table-container table.table tbody tr td {
+  transition: background-color, color;
+  background-color: #2d3748;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+  padding: 0.5rem;
+  transition-duration: 500ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.table-container table.table tbody tr td:first-child {
+  width: 10px;
+}
+
+.table-container table.table tbody tr td:first-child div {
+  display: flex;
+  align-items: center;
+}
+
+.table-container table.table tbody tr td:first-child div input {
+  color: #2c5282;
+  height: 1rem;
+  width: 1rem;
+}
+
+.table-container table.table tbody tr td:last-child {
+  width: 125px;
+  min-width: 125px;
+}
+
+.table-container table.table tbody tr td:last-child .table-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.table-container table.table tbody tr td:last-child .table-options a {
+  transition: border-color;
+  border-width: 2px;
+  border-color: #a0aec0;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition-duration: 500ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.table-container table.table tbody tr td:last-child .table-options a svg {
+  transition: color;
+  width: 1rem;
+  height: 1rem;
+  transition-duration: 500ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.table-container table.table tbody tr td:last-child .table-options a:hover {
+  border-color: #2c5282;
+}
+
+.table-container table.table tbody tr td:last-child .table-options a:hover svg {
+  color: #2c5282;
+}
+
+.table-container table.table tbody tr:hover td {
+  background-color: #1a202c;
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+}
+
+.dataTables_info {
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.dataTables_length {
+  display: inline-flex;
+  margin-right: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.dataTables_length label {
+  font-size: 0.875rem;
+  text-transform: capitalize;
+}
+
+.dataTables_length label select {
+  background-color: #cbd5e0;
+  border-color: #cbd5e0;
+  border-width: 2px;
+  color: #718096;
+  font-size: 0.875rem;
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.dataTables_length label select:focus {
+  background-color: #fff;
+  outline: 0;
+}
+
+.dataTables_filter {
+  display: inline-flex;
+  margin-bottom: 0.5rem;
+}
+
+.dataTables_filter label {
+  font-size: 0.875rem;
+}
+
+.dataTables_filter label input {
+  background-color: #cbd5e0;
+  border-color: #cbd5e0;
+  border-width: 2px;
+  color: #718096;
+  font-size: 0.875rem;
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.dataTables_filter label input:focus {
+  background-color: #fff;
+  outline: 0;
+}
+
+.dataTables_paginate.paging_simple_numbers .paginate_button {
+  transition: background-color, color;
+  background-color: #2d3748;
+  color: #cbd5e0;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  margin-right: 0.25rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  font-size: 0.875rem;
+  transition-duration: 500ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.dataTables_paginate.paging_simple_numbers .paginate_button:hover {
+  background-color: #1a202c;
+  color: #2c5282;
+}
+
+.dataTables_paginate.paging_simple_numbers .ellipsis {
+  margin-right: 0.25rem;
+  font-size: 1.125rem;
 }
 
 body.light-theme {

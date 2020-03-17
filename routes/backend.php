@@ -27,3 +27,8 @@ Route::get('profile/edit','ProfileController@edit')->name('backend.profile.edit'
 Route::patch('profile','ProfileController@update')->name('backend.profile.update');
 Route::post('profile/delete-avatar','ProfileController@deleteAvatar')->name('backend.profile.delete-avatar');
 Route::post('profile/delete-cover','ProfileController@deleteCover')->name('backend.profile.delete-cover');
+
+// Users Routes
+Route::resource('users','UserController',['names' => 'backend.users']);
+// Route::post('users/{id}/change-status','UserController@changeStatus')->name('backend.users.change-status');
+// Route::post('users/{id}/delete-avatar','UserController@deleteAvatar')->name('backend.users.delete-avatar');
