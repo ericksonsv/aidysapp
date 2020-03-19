@@ -6,8 +6,17 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
 @import '~animate.css/animate.min.css';
 
+@font-face {
+  font-family: Nunito;
+  src: url('/vendor/fonts/Nunito/Nunito-Regular.ttf');
+}
+@font-face {
+  font-family: Poppins;
+  src: url('/vendor/fonts/Poppins/Poppins-Regular.ttf');
+}
+
 body, html { @apply h-full; }
-body {	font-family: 'Nunito', sans-serif; }
+body {	font-family: 'Poppins', sans-serif; }
 svg { @apply fill-current w-6 h-6; }
 
 // Scrollbar
@@ -18,7 +27,7 @@ svg { @apply fill-current w-6 h-6; }
 
 // Navbar
 	.navbar {
-		@apply fixed top-0 w-full bg-gray-1000 h-16 shadow-md px-3 flex items-center justify-between z-40;
+		@apply fixed top-0 w-full bg-gray-1000 h-16 shadow px-4 flex items-center justify-between z-40;
 		.nav-left {
 			@apply flex items-center;
 			#toggle-sidebar-btn {
@@ -26,16 +35,16 @@ svg { @apply fill-current w-6 h-6; }
 				width: 20px;
 				height: 12px;
 				span {
-					@apply bg-gray-500 block w-full rounded transition duration-700 ease-in-out;
+					@apply bg-gray-400 block w-full rounded transition duration-700 ease-in-out;
 					height: 2px;
 				}
 				&:before {
-					@apply absolute w-full top-0 bg-gray-500 rounded transition duration-700 ease-in-out;;
+					@apply absolute w-full top-0 bg-gray-400 rounded transition duration-700 ease-in-out;;
 					content: '';
 					height: 2px;
 				}
 				&:after {
-					@apply absolute w-full bottom-0 bg-gray-500 rounded transition duration-700 ease-in-out;;
+					@apply absolute w-full bottom-0 bg-gray-400 rounded transition duration-700 ease-in-out;;
 					content: '';
 					height: 2px;
 				}
@@ -88,8 +97,8 @@ svg { @apply fill-current w-6 h-6; }
 			@apply relative bg-gray-1000 text-gray-100 rounded p-4 mb-2 flex flex-col items-center justify-center leading-tight overflow-hidden;
 			#auth-overlay-color { @apply absolute bg-gray-1000 top-0 left-0 w-full h-full opacity-75 z-10; }
 			#auth-avatar { @apply z-50; }
-			#auth-name { @apply text-lg z-50; }
-			#auth-email, #auth-role { @apply text-sm z-50; }
+			#auth-name { @apply z-50; }
+			#auth-email, #auth-role { @apply text-xs z-50; }
 		}
 		a {
 			transition: all;
@@ -98,7 +107,7 @@ svg { @apply fill-current w-6 h-6; }
 				@apply mr-2;
 			}
 			&:hover {
-				@apply bg-gray-1000 shadow-inner text-blue-800;
+				@apply bg-gray-1000 text-blue-800;
 			}
 			&.active {
 				@apply text-blue-800;
@@ -117,13 +126,13 @@ svg { @apply fill-current w-6 h-6; }
 		transition: left;
 		left: -14rem;
 		height: calc(100% - 4rem);
-		@apply bg-gray-1000 fixed top-0 w-56 mt-16 py-3 z-40 overflow-y-auto text-sm font-bold duration-500 ease-in-out;
+		@apply bg-gray-1000 fixed top-0 w-56 mt-16 py-3 z-40 overflow-y-auto duration-500 ease-in-out;
 		&::-webkit-scrollbar { width: 0.2rem; }
 		&::-webkit-scrollbar-track { @apply bg-gray-1000; }
 		&::-webkit-scrollbar-thumb { @apply bg-blue-800; }
 		.sidebar-link {
 			transition: all;
-			@apply h-8 pl-3 pr-1 flex items-center duration-500 ease-in-out;
+			@apply h-8 pl-4 pr-1 flex items-center duration-500 ease-in-out;
 			> div {
 				@apply flex items-center;
 				svg { @apply mr-1; }
@@ -138,7 +147,7 @@ svg { @apply fill-current w-6 h-6; }
 		}
 		.sidebar-dropdown {
 			transition: color;
-			@apply h-8 pl-3 pr-1 flex items-center justify-between duration-500 ease-in-out;
+			@apply h-8 pl-4 pr-2 flex items-center justify-between duration-500 ease-in-out;
 			> div {
 				@apply flex items-center;
 				svg { @apply mr-1; }
@@ -155,6 +164,9 @@ svg { @apply fill-current w-6 h-6; }
 				> svg {
 					transform: rotate(-180deg);
 				}
+			}
+			.sidebar-link {
+				@apply text-sm;
 			}
 		}
 		.sidebar-dropdown-menu {
@@ -173,7 +185,7 @@ svg { @apply fill-current w-6 h-6; }
 		transition: padding-left;
 		@apply py-16 duration-500 ease-in-out;
 		#main-content {
-			@apply p-3;
+			@apply p-4;
 		}
 		&.is-compact {
 			@apply pl-56;
@@ -194,7 +206,10 @@ svg { @apply fill-current w-6 h-6; }
 		a {
 			@apply transition duration-500 ease-in-out;
 			.box-icon {
-				@apply bg-gray-1000 rounded p-6 mr-2 flex items-center justify-center;
+				@apply bg-gray-1000 rounded p-5 mr-2 flex items-center justify-center;
+				svg {
+					@apply w-8 h-8;
+				}
 			}
 			&:hover {
 				@apply text-blue-800;
@@ -202,7 +217,7 @@ svg { @apply fill-current w-6 h-6; }
 		}
 		.box-content {
 			.box-title { @apply text-blue-800 text-sm font-bold; }
-			.box-description { @apply text-2xl font-hairline; }
+			.box-description { @apply text-3xl font-hairline; }
 		}
 	}
 // Info Box
@@ -212,51 +227,27 @@ svg { @apply fill-current w-6 h-6; }
 		@apply mb-4;
 	}
 	.input {
-		@apply bg-gray-400 border-gray-400 border-2 text-gray-600 text-sm block w-full rounded px-4 py-3 shadow-md;
+		@apply bg-gray-800 border-gray-700 border-2 text-gray-100 block w-full rounded px-4 py-3 shadow-md;
 		&.input-error {
 			@apply border-red-600;
 		}
 		&:focus {
-			@apply bg-gray-200;
+			@apply bg-gray-600 text-gray-1000 border-gray-900 outline-none;
 		}
 	}
 	.input-feedback {
-		@apply text-xs;
+		@apply text-sm;
 		&.feedback-error {
 			@apply text-red-600 font-bold;
 		}
 	}
 	.btn {
-		transition: background-color;
-		@apply bg-gray-800 text-gray-400 flex items-center justify-center px-3 py-2 rounded shadow-md text-sm duration-500 ease-in-out;
-		svg {
-			transition: color;
-			@apply w-5 h-5 duration-500 ease-in-out;
-		}
-		span {
-			@apply ml-2;
-		}
-		&.btn-full {
-			@apply w-full;
-		}
-		&.btn-lg {
-			@apply px-4 py-3 text-lg;
-			svg {
-				@apply w-6 h-6;
-			}
-		}
-		&.btn-sm {
-			@apply px-2 py-1 text-xs;
-			svg {
-				@apply w-4 h-4;
-			}
-		}
+		@apply flex items-center justify-around bg-gray-900 text-gray-100 shadow-btn rounded-md px-3 py-2 duration-500 ease-in-out;
 		&:hover {
-			@apply bg-gray-900 text-blue-800;
-			svg { @apply text-blue-800; }
+			@apply bg-gray-950 text-blue-800;
 		}
 		&:focus {
-			@apply outline-none;
+			@apply outline-none shadow;
 		}
 	}
 // Form Inputs, Buttons
@@ -321,7 +312,7 @@ svg { @apply fill-current w-6 h-6; }
 			thead {
 				tr {
 					th {
-						@apply bg-gray-900 shadow-sm p-2;
+						@apply bg-gray-950 text-gray-100 shadow-sm p-2;
 						&:first-child {
 							width: 10px;
 							div {
@@ -338,7 +329,7 @@ svg { @apply fill-current w-6 h-6; }
 				tr {
 					td {
 						transition: background-color, color;
-						@apply bg-gray-800 shadow-sm shadow-inner p-2 duration-500 ease-in-out;
+						@apply bg-gray-900 shadow-sm shadow-inner p-2 duration-500 ease-in-out;
 						&:first-child {
 							width: 10px;
 							div {
@@ -355,7 +346,7 @@ svg { @apply fill-current w-6 h-6; }
 								@apply flex items-center justify-around;
 								a {
 									transition: border-color;
-									@apply border-2 border-gray-500 p-1 rounded shadow-md flex items-center justify-center duration-500 ease-in-out;
+									@apply border-2 border-gray-600 text-gray-600 p-1 rounded shadow-md flex items-center justify-center duration-500 ease-in-out;
 									svg {
 										transition: color;
 										@apply w-4 h-4 duration-500 ease-in-out;
@@ -371,7 +362,7 @@ svg { @apply fill-current w-6 h-6; }
 						}
 					}
 					&:hover {
-						td { @apply bg-gray-900 shadow-inner; }
+						td { @apply bg-gray-800 shadow-inner; }
 					}
 				}
 			}
@@ -385,9 +376,10 @@ svg { @apply fill-current w-6 h-6; }
 		label {
 			@apply text-sm capitalize;
 			select {
-				@apply bg-gray-400 border-gray-400 border-2 text-gray-600 text-sm rounded p-1 mx-1 shadow-md;
+				// @apply bg-gray-400 border-gray-400 border-2 text-gray-600 text-sm rounded p-1 mx-1 shadow-md;
+				@apply bg-gray-800 border-gray-700 border-2 text-gray-100 rounded px-2 py-1 mx-1 shadow-md;
 				&:focus {
-					@apply bg-white outline-none;
+					@apply bg-gray-600 text-gray-1000 border-gray-900 outline-none;
 				}
 			}
 		}
@@ -397,9 +389,9 @@ svg { @apply fill-current w-6 h-6; }
 		label {
 			@apply text-sm;
 			input {
-				@apply bg-gray-400 border-gray-400 border-2 text-gray-600 text-sm rounded p-1 mx-1 shadow-md;
+				@apply bg-gray-800 border-gray-700 border-2 text-gray-100 rounded px-2 py-1 mx-1 shadow-md;
 				&:focus {
-					@apply bg-white outline-none;
+					@apply bg-gray-600 text-gray-1000 border-gray-900 outline-none;
 				}
 			}
 		}
@@ -407,9 +399,10 @@ svg { @apply fill-current w-6 h-6; }
 	.dataTables_paginate.paging_simple_numbers {
 		.paginate_button {
 			transition: background-color, color;
-			@apply bg-gray-800 text-gray-400 px-2 py-1 mr-1 rounded shadow-md text-sm duration-500 ease-in-out cursor-pointer;
+			// @apply bg-gray-800 text-gray-400 px-2 py-1 mr-1 rounded shadow-md text-sm duration-500 ease-in-out cursor-pointer;
+			@apply bg-gray-900 text-gray-100 text-sm shadow-btn rounded px-2 py-1 mr-1 duration-500 ease-in-out cursor-pointer;
 			&:hover {
-				@apply bg-gray-900 text-blue-800;
+				@apply bg-gray-950 text-blue-800;
 			}
 			&.previous {}
 			&.next {}
@@ -422,4 +415,4 @@ svg { @apply fill-current w-6 h-6; }
 // Table Component
 
 body.light-theme { @apply bg-gray-100 text-gray-800; }
-body.dark-theme { @apply bg-gray-1000 text-gray-500; }
+body.dark-theme { @apply bg-gray-1000 text-gray-400; }

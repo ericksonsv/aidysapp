@@ -9,6 +9,9 @@ module.exports = {
 				'72': '18rem',
 				'84': '21rem',
 				'96': '24rem',
+			},
+			boxShadow: {
+				btn: '0px 0px 2px rgba(0,0,0,.7)',
 			}
 		},
 	},
