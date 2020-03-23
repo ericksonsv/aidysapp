@@ -2,13 +2,31 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Ability;
 use App\Http\Controllers\Backend\Controller;
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->middleware(['can:browse-users'])->only(['index']);
+        $this->middleware(['can:read-users'])->only(['show']);
+        $this->middleware(['can:edit-users'])->only(['edit','update']);
+        $this->middleware(['can:add-users'])->only(['create','store']);
+        $this->middleware(['can:destroy-users'])->only(['destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +34,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::where('id', '!=', auth()->user()->id)->get();
+        $users = User::where([['id', '!=', 1],['id', '!=', auth()->user()->id]])->get();
         return view('backend.users.index', compact('users'));
     }
 
@@ -27,7 +45,10 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('backend.users.create',['user'=> new User()]);
+        $user = new User;
+        $roles = Role::select('id','name','label')->get();
+        $abilities = Ability::all()->groupBy(function($item, $key) { return Str::afterLast($item['name'], '-'); });
+        return view('backend.users.create', compact('user','roles','abilities'));
     }
 
     /**
@@ -38,9 +59,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-
         $request->validate([
+            'role'      => ['required','integer'],
             'name'      => ['required', 'string', 'max:255'],
             'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'avatar'    => ['image','mimes:jpeg,png,jpg,gif,svg','max:512'],
@@ -49,11 +69,18 @@ class UserController extends Controller
         ]);
 
         $user = User::create([
+            'role_id'   => $request->role,
             'name'      => $request->name,
             'email'     => $request->email,
             'active'    => $request->status,
             'password'  => bcrypt($request->password)
         ]);
+
+        if ($request->abilities) {
+            foreach ($request->abilities as $ability) {
+                $user->assignDirectAbility($ability);
+            }
+        }
 
         if ($request->has('avatar')) {
             $request->file('avatar')->store('public/users/avatars');
@@ -89,7 +116,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('backend.users.edit', compact('user'));
+        $roles = Role::select('id','name','label')->get();
+        $abilities = Ability::all()->groupBy(function($item, $key) { return Str::afterLast($item['name'], '-'); });
+        return view('backend.users.edit', compact('user','roles','abilities'));
     }
 
     /**
@@ -102,16 +131,27 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$user->id],
+            'role'      => ['required','integer'],
+            'name'      => ['required', 'string', 'max:255'],
+            'email'     => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$user->id],
             'avatar'    => ['image','mimes:jpeg,png,jpg,gif,svg','max:512'],
-            'status' => ['required'],
+            'status'    => ['required'],
         ]);
 
+        $user->role_id = $request->role;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->active = $request->status;
         $user->save();
+
+        if ($request->abilities) {
+            $user->removeDirectAbility(Ability::all());
+            foreach ($request->abilities as $ability) {
+                $user->assignDirectAbility($ability);
+            }
+        } else {
+            $user->removeDirectAbility(Ability::all());
+        }
 
         if (isset($request->password)) {
             $request->validate([
@@ -170,7 +210,7 @@ class UserController extends Controller
     }
 
     /**
-     * Change status to the specified resource from storage.
+     * Delete avatar to the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -178,10 +218,32 @@ class UserController extends Controller
     public function deleteAvatar($id)
     {
         $user = User::findOrFail($id);
-        if ($user->image) {
-            Storage::delete('public/users/avatars/'.$user->image->name);
-            $user->image->delete();
+
+        if ($user->avatar) {
+            Storage::delete('public/users/avatars/'.$user->avatar);
+            $user->avatar = '';
+            $user->save();
             return response(__('Avatar Removed'));
+        } else {
+            return response(__('No Avatar'));
+        }
+    }
+
+    /**
+     * Delete cover to the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteCover($id)
+    {
+        $user = User::findOrFail($id);
+        
+        if ($user->cover) {
+            Storage::delete('public/users/covers/'.$user->cover);
+            $user->cover = '';
+            $user->save();
+            return response(__('Cover Removed'));
         } else {
             return response(__('No Avatar'));
         }

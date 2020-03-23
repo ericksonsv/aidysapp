@@ -5,11 +5,11 @@
 @section('content')
 
 <section class="page-header">
-	<h4 class="text-2xl">{{ auth()->user()->name }} {{ __('Profile') }}</h4>
+	<h4 class="text-2xl">{{ __('My Profile') }}</h4>
 	<section class="flex items-center">
-		<a href="" class="btn mr-2">
+		<a href="{{ route('backend.dashboard') }}" class="btn mr-2">
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-				<path d="M12.3,12.22A4.92,4.92,0,0,0,14,8.5a5,5,0,0,0-10,0,4.92,4.92,0,0,0,1.7,3.72A8,8,0,0,0,1,19.5a1,1,0,0,0,2,0,6,6,0,0,1,12,0,1,1,0,0,0,2,0A8,8,0,0,0,12.3,12.22ZM9,11.5a3,3,0,1,1,3-3A3,3,0,0,1,9,11.5Zm9.74.32A5,5,0,0,0,15,3.5a1,1,0,0,0,0,2,3,3,0,0,1,3,3,3,3,0,0,1-1.5,2.59,1,1,0,0,0-.5.84,1,1,0,0,0,.45.86l.39.26.13.07a7,7,0,0,1,4,6.38,1,1,0,0,0,2,0A9,9,0,0,0,18.74,11.82Z"/>
+			  <path d="M20 8l-6-5.26a3 3 0 00-4 0L4 8a3 3 0 00-1 2.26V19a3 3 0 003 3h12a3 3 0 003-3v-8.75A3 3 0 0020 8zm-6 12h-4v-5a1 1 0 011-1h2a1 1 0 011 1zm5-1a1 1 0 01-1 1h-2v-5a3 3 0 00-3-3h-2a3 3 0 00-3 3v5H6a1 1 0 01-1-1v-8.75a1 1 0 01.34-.75l6-5.25a1 1 0 011.32 0l6 5.25a1 1 0 01.34.75z"/>
 			</svg>
 		</a>
 		<a href="{{ route('backend.profile.edit') }}" class="btn">
@@ -22,6 +22,37 @@
 
 <div class="card">
 	<div class="card-body">
+		{{-- Role --}}
+		<div class="flex flex-wrap mb-8">
+			<div class="flex items-center w-full md:w-1/5">
+				<p class="text-sm font-bold mb-2">{{ __('Role') }}</p>
+			</div>
+			<div class="w-full md:w-4/5">
+				<p>{{ auth()->user()->role_name }}</p>
+			</div>
+		</div>
+		{{-- Abilities --}}
+		<div class="flex flex-wrap mb-8">
+			<div class="flex items-center w-full md:w-1/5">
+				<p class="text-sm font-bold mb-2">{{ __('Direct Abilities') }}</p>
+			</div>
+			<div class="w-full md:w-4/5">
+				@if (count(auth()->user()->abilities))
+					<div class="flex items-center">
+						@foreach (auth()->user()->abilities as $ability)
+							<p class="flex items-center text-sm mr-2">
+								<svg class="w-5 h-5 text-blue-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+								  <path d="M10.21,14.75a1,1,0,0,0,1.42,0l4.08-4.08a1,1,0,0,0-1.42-1.42l-3.37,3.38L9.71,11.41a1,1,0,0,0-1.42,1.42ZM21,2H3A1,1,0,0,0,2,3V21a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V3A1,1,0,0,0,21,2ZM20,20H4V4H20Z"/>
+								</svg>
+								<span class="block ml-1">{{ $ability->ability_label }}</span>
+							</p>
+						@endforeach
+					</div>
+				@else
+					<p>{{ __('No Direct Abilities Assigned') }}</p>
+				@endif
+			</div>
+		</div>
 		{{-- Name --}}
 		<div class="flex flex-wrap mb-8">
 			<div class="flex items-center w-full md:w-1/5">

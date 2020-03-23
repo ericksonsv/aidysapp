@@ -2,6 +2,45 @@
 
 <div class="card">
 	<div class="card-body">
+		{{-- Role --}}
+		<div class="flex flex-wrap mb-8">
+			<div class="flex items-center w-full md:w-1/5"><label for="role">{{ __('Role') }}</label></div>
+			<div class="w-full md:w-4/5">
+				<select name="role" id="role" class="input">
+					@foreach ($roles as $role)
+						<option value="{{ $role->id }}" {{ ($user->role) ? ($user->role->id === $role->id) ? 'selected' : '' : '' }}>
+							{{ ($role->label) ? $role->label : Str::title(str_replace('-',' ', $role->name)) }}
+						</option>
+					@endforeach
+				</select>
+				@error('role')
+					<p class="input-feedback feedback-error mt-1 animated fadeInUp">{{ $message }}</p>
+				@enderror
+			</div>
+		</div>
+		{{-- Abilities --}}
+		<div class="flex flex-wrap mb-8">
+			<div class="flex items-center w-full md:w-1/5"><label for="name">{{ __('Direct Abilities') }}</label></div>
+			<div class="w-full md:w-4/5">
+				<div class="h-32 p-4 rounded bg-gray-800 border-gray-700 border-2 shadow-md overflow-y-auto">					
+					<div>
+						@foreach ($abilities as $abilitiesGroup => $abilitiesAll)
+						<div class="mb-4">
+							<p class="text-lg mb-2">{{ ucfirst($abilitiesGroup) }} {{ __('Permissions') }}</p>
+							@foreach ($abilitiesAll as $ability)
+							<label class="flex items-center">
+								<input type="checkbox" class="form-checkbox" name="abilities[]" value="{{ $ability->name }}" 
+								{{ ($user->abilities->pluck('id')->contains($ability->id)) ? 'checked' : '' }}
+								>
+								<span class="ml-2">{{ $ability->ability_label }}</span>
+							</label>
+							@endforeach
+						</div>
+						@endforeach
+					</div>
+				</div>
+			</div>
+		</div>
 		{{-- Name --}}
 		<div class="flex flex-wrap mb-8">
 			<div class="flex items-center w-full md:w-1/5"><label for="name">{{ __('Name') }}</label></div>
@@ -75,8 +114,8 @@
 			<div class="flex items-center w-full md:w-1/5"><label for="email">{{ __('Status') }}</label></div>
 			<div class="w-full md:w-4/5">
 				<select name="status" id="status" class="input">
-					<option value="1"{{ old('status', $user->active) ? ' selected' : '' }}>{{ __('Active') }}</option>
-					<option value="0"{{ old('status', $user->active) ? '' : ' selected' }}>{{ __('Inactive') }}</option>
+					<option value="1" {{ ($user->active === 1 || old('active') === 1) ? 'selected' : '' }}>{{ __('Active') }}</option>
+					<option value="0" {{ ($user->active === 0 || old('active') === 0) ? 'selected' : '' }}>{{ __('Inactive') }}</option>
 				</select>
 				@error('status')
 				<p class="input-feedback feedback-error mt-1 animated fadeInUp">{{ $message }}</p>

@@ -8,7 +8,9 @@
 		@endif
 		<p id="auth-name">{{ auth()->user()->name }}</p>
 		<p id="auth-email">{{ auth()->user()->email }}</p>
-		<p id="auth-role">Administrator</p>
+		<p id="auth-role">
+			{{ auth()->user()->role_name }}
+		</p>
 	</header>
 	<a href="{{ route('backend.profile.show') }}" class="{{ setActive('backend.profile.*') }}">
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

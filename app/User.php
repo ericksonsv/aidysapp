@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -16,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'role_id', 'name', 'email', 'password',
     ];
 
     /**
@@ -36,4 +37,56 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function abilities()
+    {
+        return $this->belongsToMany(Ability::class)->withTimestamps();
+    }
+
+    public function roleAbilities()
+    {
+        return $this->role->abilities->pluck('name');
+    }
+
+    public function directAbilities()
+    {
+        return $this->abilities->pluck('name');
+    }
+
+    public function assignDirectAbility($ability)
+    {
+        if (is_string($ability)) {
+            $ability = Ability::whereName($ability)->firstOrFail();
+        }
+
+        if (is_integer($ability)) {
+            $ability = Ability::whereId($ability)->firstOrFail();
+        }
+
+        $this->abilities()->syncWithoutDetaching($ability);
+    }
+
+    public function removeDirectAbility($ability)
+    {
+        if (is_string($ability)) {
+            $ability = Ability::whereName($ability)->firstOrFail();
+        }
+
+        if (is_integer($ability)) {
+            $ability = Ability::whereId($ability)->firstOrFail();
+        }
+
+        $this->abilities()->detach($ability);
+    }
+
+    public function getRoleNameAttribute()
+    {
+        return ($this->role->label) ? $this->role->label : Str::title(str_replace('-', ' ', $this->role->name));
+    }
+
 }

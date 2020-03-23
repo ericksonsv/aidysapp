@@ -28,7 +28,11 @@ Route::patch('profile','ProfileController@update')->name('backend.profile.update
 Route::post('profile/delete-avatar','ProfileController@deleteAvatar')->name('backend.profile.delete-avatar');
 Route::post('profile/delete-cover','ProfileController@deleteCover')->name('backend.profile.delete-cover');
 
-// Users Routes
+// Users
 Route::resource('users','UserController',['names' => 'backend.users']);
 // Route::post('users/{id}/change-status','UserController@changeStatus')->name('backend.users.change-status');
-// Route::post('users/{id}/delete-avatar','UserController@deleteAvatar')->name('backend.users.delete-avatar');
+Route::post('users/{id}/delete-avatar','UserController@deleteAvatar')->name('backend.users.delete-avatar');
+Route::post('users/{id}/delete-cover','UserController@deleteCover')->name('backend.users.delete-cover');
+
+// Roles
+Route::resource('roles','RoleController',['names' => 'backend.roles']);

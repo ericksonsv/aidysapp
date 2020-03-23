@@ -27,7 +27,7 @@ svg { @apply fill-current w-6 h-6; }
 
 // Navbar
 	.navbar {
-		@apply fixed top-0 w-full bg-gray-1000 h-16 shadow px-4 flex items-center justify-between z-40;
+		@apply fixed top-0 w-full bg-gray-1000 h-16 shadow-md px-4 flex items-center justify-between z-40;
 		.nav-left {
 			@apply flex items-center;
 			#toggle-sidebar-btn {
