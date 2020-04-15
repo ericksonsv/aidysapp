@@ -14,8 +14,8 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('role_id');
+            $table->BigIncrements('id');
+            $table->unsignedBigInteger('role_id')->nullable();
             $table->string('name');
             $table->string('email')->unique();
             $table->string('avatar')->nullable();
@@ -25,6 +25,12 @@ class CreateUsersTable extends Migration
             $table->boolean('active')->default(true);
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('role_id')
+                  ->references('id')
+                  ->on('roles')
+                  ->onDelete('set null')
+                  ->odUpdate('cascade');
         });
     }
 

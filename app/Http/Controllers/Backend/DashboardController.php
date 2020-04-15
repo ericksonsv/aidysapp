@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller\Backend;
-use Illuminate\Http\Request;
+use App\Post;
 use App\User;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
@@ -12,7 +13,8 @@ class DashboardController extends Controller
     {
     	return view('backend.dashboard.index', 
     		[
-    			'users' => User::where('id','!=',1)->count()
+    			'users' 	=> User::where('id','!=',1)->count(),
+    			'posts' 	=> Post::count()
     		]
     	);
     }

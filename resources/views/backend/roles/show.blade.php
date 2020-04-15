@@ -1,6 +1,6 @@
 @extends('backend.layouts.app')
 
-@section('title', $role->name)
+@section('title', __('Viewing Role'))
 
 @section('content')
 
@@ -53,16 +53,26 @@
 			</div>
 			<div class="w-full md:w-4/5">
 				@if (count($role->abilities))
-					<div class="flex">
-						@foreach ($role->abilities as $ability)
-							<p class="flex items-center text-sm m-1">
-								<svg class="w-5 h-5 text-blue-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-								  <path d="M10.21,14.75a1,1,0,0,0,1.42,0l4.08-4.08a1,1,0,0,0-1.42-1.42l-3.37,3.38L9.71,11.41a1,1,0,0,0-1.42,1.42ZM21,2H3A1,1,0,0,0,2,3V21a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V3A1,1,0,0,0,21,2ZM20,20H4V4H20Z"/>
-								</svg>
-								<span class="block ml-1">{{ $ability->ability_label }}</span>
-							</p>
-						@endforeach
-					</div>
+					{{--  --}}
+						<div class="flex flex-wrap -mx-1">
+							@foreach ($abilities as $abilitiesGroup => $abilitiesAll)
+							    <div class="w-full w-full lg:w-1/3 px-1 mb-2">
+							    	<label class="flex items-center mb-4">
+										<span class="text-lg">{{ ucfirst($abilitiesGroup) }} {{ __('Permissions') }}</span>
+									</label>
+							    	@foreach ($abilitiesAll as $ability)
+								    	<p class="flex items-center text-sm pl-2 mb-1">
+								    		<svg class="w-5 h-5 text-blue-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+								    		  <path d="M10.21,14.75a1,1,0,0,0,1.42,0l4.08-4.08a1,1,0,0,0-1.42-1.42l-3.37,3.38L9.71,11.41a1,1,0,0,0-1.42,1.42ZM21,2H3A1,1,0,0,0,2,3V21a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V3A1,1,0,0,0,21,2ZM20,20H4V4H20Z"/>
+								    		</svg>
+								    		<span class="block ml-1">{{ $ability->ability_label }}</span>
+								    	</p>
+							    	@endforeach
+							    </div>
+							@endforeach
+						</div>
+					{{--  --}}
+					
 				@else
 					<p>{{ __('No Abilities Assigned') }}</p>
 				@endif

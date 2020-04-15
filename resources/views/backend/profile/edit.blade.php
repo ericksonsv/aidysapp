@@ -106,7 +106,7 @@
 		</div>
 		<div class="card-footer flex justify-end">
 			<a href="{{ route('backend.profile.show') }}" class="btn mr-1">{{ __('Cancel') }}</a>
-			<button class="btn">{{ __('Save') }}</button>
+			<button class="btn">{{ __('Update') }}</button>
 		</div>
 	</div>
 </form>

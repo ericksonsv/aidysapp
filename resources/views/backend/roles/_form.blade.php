@@ -12,7 +12,7 @@
 				@enderror
 			</div>
 		</div>
-		{{-- Name --}}
+		{{-- Label --}}
 		<div class="flex flex-wrap mb-8">
 			<div class="flex items-center w-full md:w-1/5"><label for="name">{{ __('Label') }}</label></div>
 			<div class="w-full md:w-4/5">
@@ -26,7 +26,6 @@
 		<div class="flex flex-wrap">
 			<div class="flex items-center w-full md:w-1/5"><label for="abilities">{{ __('Abilities') }}</label></div>
 			<div class="w-full md:w-4/5">
-
 				<div class="flex flex-wrap -mx-1">
 					@foreach ($abilities as $abilitiesGroup => $abilitiesAll)
 					    <div class="w-full w-full lg:w-1/3 px-1 mb-2">
@@ -44,17 +43,6 @@
 					    </div>
 					@endforeach
 				</div>
-
-				{{-- @foreach ($abilities as $abilityGroup => $abilitiesAll)
-					<p class="font-bold py-4">{{ ucfirst($abilityGroup) }} {{ __('Abilities	') }}</p>
-					@foreach ($abilitiesAll as $ability)
-						<label class="flex items-center">
-							<input type="checkbox" class="form-checkbox" name="abilities[]" value="{{ $ability->name }}" 
-							{{ ($role->abilities->pluck('id')->contains($ability->id)) ? 'checked' : '' }}>
-							<span class="ml-2 text-sm">{{ ($ability->label) ? $ability->label : Str::title(str_replace('_', ' ', $ability->name)) }}</span>
-						</label>
-					@endforeach
-				@endforeach --}}
 			</div>
 		</div>
 	</div>

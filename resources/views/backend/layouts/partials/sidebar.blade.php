@@ -1,4 +1,5 @@
 <aside id="sidebar">
+
 	<a href="{{ route('backend.dashboard') }}" class="sidebar-link{{ setActive('backend.dashboard') }}">
 		<div>
 			<svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24">
@@ -7,6 +8,53 @@
 			<span>{{ __('Dashboard') }}</span>
 		</div>
 	</a>
+
+	@canany(['browse-categories','browse-posts','browse-videos','browse-tags'])
+		<a href="" class="sidebar-dropdown">
+			<div>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+				  <path d="M16 20H8a3 3 0 01-3-3V7a1 1 0 00-2 0v10a5 5 0 005 5h8a1 1 0 000-2zm-6-7a1 1 0 001 1h5a1 1 0 000-2h-5a1 1 0 00-1 1zm11-4.06a1.31 1.31 0 00-.06-.27v-.09a1.07 1.07 0 00-.19-.28l-6-6a1.07 1.07 0 00-.28-.19.32.32 0 00-.09 0 .88.88 0 00-.33-.11H10a3 3 0 00-3 3v10a3 3 0 003 3h8a3 3 0 003-3V9v-.06zm-6-3.53L17.59 8H16a1 1 0 01-1-1zM19 15a1 1 0 01-1 1h-8a1 1 0 01-1-1V5a1 1 0 011-1h3v3a3 3 0 00.18 1H11a1 1 0 000 2h8z"/>
+				</svg>
+				<span>{{ __('Blog') }}</span>
+			</div>
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+				<path d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59A1,1,0,0,0,17,9.17Z"/>
+			</svg>
+		</a>
+		<div class="sidebar-dropdown-menu">
+			@can('browse-categories')
+				<a href="{{ route('backend.categories.index') }}" class="sidebar-link{{ setActive('backend.categories.*') }}">
+					<div>
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+						  <path d="M2.5,8.86l9,5.2a1,1,0,0,0,1,0l9-5.2A1,1,0,0,0,22,8a1,1,0,0,0-.5-.87l-9-5.19a1,1,0,0,0-1,0l-9,5.19A1,1,0,0,0,2,8,1,1,0,0,0,2.5,8.86ZM12,4l7,4-7,4L5,8Zm8.5,7.17L12,16,3.5,11.13a1,1,0,0,0-1.37.37,1,1,0,0,0,.37,1.36l9,5.2a1,1,0,0,0,1,0l9-5.2a1,1,0,0,0,.37-1.36A1,1,0,0,0,20.5,11.13Zm0,4L12,20,3.5,15.13a1,1,0,0,0-1.37.37,1,1,0,0,0,.37,1.36l9,5.2a1,1,0,0,0,1,0l9-5.2a1,1,0,0,0,.37-1.36A1,1,0,0,0,20.5,15.13Z"/>
+						</svg>
+						<span>{{ __('Categories') }}</span>
+					</div>
+				</a>
+			@endcan
+			@can('browse-posts')
+				<a href="{{ route('backend.posts.index') }}" class="sidebar-link{{ setActive('backend.posts.*') }}">
+					<div>
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+						  <path d="M9 10h1a1 1 0 000-2H9a1 1 0 000 2zm0 2a1 1 0 000 2h6a1 1 0 000-2zm11-3.06a1.31 1.31 0 00-.06-.27v-.09a1.07 1.07 0 00-.19-.28l-6-6a1.07 1.07 0 00-.28-.19.32.32 0 00-.09 0 .88.88 0 00-.33-.11H7a3 3 0 00-3 3v14a3 3 0 003 3h10a3 3 0 003-3V9v-.06zm-6-3.53L16.59 8H15a1 1 0 01-1-1zM18 19a1 1 0 01-1 1H7a1 1 0 01-1-1V5a1 1 0 011-1h5v3a3 3 0 003 3h3zm-3-3H9a1 1 0 000 2h6a1 1 0 000-2z"/>
+						</svg>
+						<span>{{ __('Posts') }}</span>
+					</div>
+				</a>
+			@endcan
+			@can('browse-tags')
+				<a href="{{ route('backend.tags.index') }}" class="sidebar-link{{ setActive('backend.tags.*') }}">
+					<div>
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+						  <path d="M7.5 6A1.5 1.5 0 109 7.5 1.5 1.5 0 007.5 6zm13.62 4.71l-8.41-8.42A1 1 0 0012 2H3a1 1 0 00-1 1v9a1 1 0 00.29.71l8.42 8.41a3 3 0 004.24 0L21.12 15a3 3 0 000-4.24zm-1.41 2.82l-6.18 6.17a1 1 0 01-1.41 0L4 11.59V4h7.59l8.12 8.12a1 1 0 01.29.71 1 1 0 01-.29.7z"/>
+						</svg>
+						<span>{{ __('Tags') }}</span>
+					</div>
+				</a>
+			@endcan
+		</div>
+	@endcanany
+
 	@canany(['browse-users','browse-roles','browse-abilities'])
 		<a href="" class="sidebar-dropdown">
 			<div>
@@ -62,4 +110,5 @@
 			@endcan
 		</div>
 	@endcanany
+
 </aside>

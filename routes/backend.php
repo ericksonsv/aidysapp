@@ -36,3 +36,14 @@ Route::post('users/{id}/delete-cover','UserController@deleteCover')->name('backe
 
 // Roles
 Route::resource('roles','RoleController',['names' => 'backend.roles']);
+
+// Categories
+Route::resource('categories','CategoryController',['names' => 'backend.categories']);
+
+// Posts
+Route::resource('posts','PostController',['names' => 'backend.posts']);
+Route::post('post/{id}/delete-image','PostController@deleteImage')->name('backend.posts.delete-image');
+Route::post('post/{id}/delete-video','PostController@deleteVideo')->name('backend.posts.delete-video');
+
+// tags
+Route::resource('tags','TagController', ['names' => 'backend.tags']);

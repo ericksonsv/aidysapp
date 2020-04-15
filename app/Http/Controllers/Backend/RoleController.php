@@ -85,7 +85,8 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        return view('backend.roles.show', compact('role'));
+        $abilities = $role->abilities->groupBy(function($item, $key) { return Str::afterLast($item['name'], '-'); });
+        return view('backend.roles.show', compact('role','abilities'));
     }
 
     /**
